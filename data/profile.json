@@ -9,7 +9,7 @@
   },
   "about": {
     "paragraphs": [
-        "I am a Computer Science master’s student at VU / UvA, specializing in Computer Systems and Infrastructure. I care about how computers work under the hood, especially performance, security, and building reliable distributed systems. I mainly write code in C and C++, am currently learning Rust, and enjoy competitive programming in my spare time."
+        "I am a Computer Science master’s student at VU / UvA, specializing in Computer Systems and Infrastructure. I care about how computers work under the hood, especially performance, security, and building reliable distributed systems. I mainly write code in C and C++, am currently learning Rust, and enjoy competitive programming in my spare time. I am a Neovim user but plan to try Emacs at some point in the future."
     ],
     "education": [
       {
