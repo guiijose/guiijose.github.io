@@ -1,0 +1,93 @@
+{
+  "profile": {
+    "name": "Guilherme José",
+    "handle": "guiijose",
+    "status": "CS Student • Computer Systems & Infrastructure",
+    "headlinePrefix": "Hi, I'm Guilherme José.",
+    "taglinePrefix": "Building resilient systems ",
+    "taglineGradient": "from bare metal to cloud.",
+    "subheadline": "I am a Computer Science student dedicated to understanding what happens under the hood—specializing in low-level systems, distributed architectures, operating systems, and scalable infrastructure.",
+    "isOpenToOpportunities": true
+  },
+  "about": {
+    "sectionTag": "// 01. Profile & Background",
+    "sectionTitle": "About Me",
+    "sectionSubtitle": "Deeply curious about computing abstractions, performance engineering, and system reliability.",
+    "paragraphs": [
+      "I am pursuing a degree in <strong>Computer Science</strong> with a dedicated specialization in <strong>Computer Systems and Infrastructure</strong>. My academic and practical focus revolves around how software interfaces directly with hardware, how operating systems manage resources, and how modern distributed systems achieve resilience at scale.",
+      "Whether it is writing high-performance code in C, analyzing Linux kernel internals, configuring containerized environments, or reasoning about network protocol overhead, I thrive on demystifying complex abstractions and engineering robust infrastructure foundations."
+    ],
+    "focusAreas": [
+      {
+        "id": "os",
+        "title": "Systems & OS Internals",
+        "description": "Process scheduling, virtual memory, POSIX interfaces, concurrency primitives, and hardware-software interaction."
+      },
+      {
+        "id": "networks",
+        "title": "Distributed Systems & Networks",
+        "description": "Socket programming, TCP/IP stack, consensus, RPC protocols, and designing fault-tolerant communication pipelines."
+      },
+      {
+        "id": "infra",
+        "title": "Infrastructure & DevOps",
+        "description": "Containerization with Docker, Linux system administration, CI/CD pipelines, and automated environment provisioning."
+      },
+      {
+        "id": "perf",
+        "title": "Performance & Diagnostics",
+        "description": "Benchmarking, memory profiling, profiling system bottlenecks, cache utilization, and observability."
+      }
+    ],
+    "sysinfo": {
+      "fileName": "sysinfo.sh",
+      "discipline": "Computer Science (B.S.)",
+      "specialization": "Computer Systems & Infrastructure",
+      "languages": ["C", "C++", "Python", "Bash", "Go"],
+      "tools": ["Linux / Unix", "Docker", "Git", "GDB / Valgrind", "POSIX", "Virtualization"],
+      "status": "Open to opportunities"
+    }
+  },
+  "cv": {
+    "sectionTag": "// 02. Curriculum Vitae",
+    "sectionTitle": "Curriculum Vitae",
+    "sectionSubtitle": "Explore my educational qualifications, systems coursework, and technical competencies.",
+    "pdfUrl": "assets/docs/cv.pdf",
+    "downloadFileName": "Guilherme_Jose_CV.pdf",
+    "bannerTitle": "Complete Resume / CV",
+    "bannerText": "Access the complete document detailing my academic track, technical projects, and background. Available for immediate in-browser viewing or PDF download.",
+    "education": [
+      {
+        "degree": "B.S. in Computer Science",
+        "specialization": "Specialization: Computer Systems and Infrastructure",
+        "period": "CURRENT / ONGOING",
+        "description": "Rigorous focus on system fundamentals, OS principles, algorithms, data structures, and networked environments."
+      }
+    ],
+    "coursework": [
+      "Operating Systems",
+      "Computer Architecture",
+      "Computer Networks",
+      "Distributed Systems",
+      "Cloud Infrastructure",
+      "Database Management Systems",
+      "Algorithms & Complexity",
+      "System Security & Dependability"
+    ],
+    "competencies": [
+      {
+        "category": "Languages & Scripting",
+        "items": ["C", "C++", "Python", "Bash / Shell", "Go", "SQL"]
+      },
+      {
+        "category": "Platforms & Infrastructure",
+        "items": ["Linux / Unix Kernel", "Docker", "Git & GitHub Actions", "TCP/IP & Sockets", "CI/CD"]
+      }
+    ]
+  },
+  "social": {
+    "github": "https://github.com/guiijose",
+    "linkedin": "https://linkedin.com",
+    "email": "guilhermejose@example.com"
+  }
+}
