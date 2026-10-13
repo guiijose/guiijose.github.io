@@ -2,17 +2,14 @@
   "profile": {
     "name": "Guilherme Andrez Jose",
     "nameLines": [
-      "Guilherme",
-      "Andrez",
-      "Jose"
+      "Guilherme Andrez José"
     ],
     "handle": "guiijose",
     "photoUrl": "assets/images/portrait.jpeg"
   },
   "about": {
     "paragraphs": [
-      "I am pursuing a degree in <strong>Computer Science</strong> with a dedicated specialization in <strong>Computer Systems and Infrastructure</strong>. My academic and practical focus revolves around how software interfaces directly with hardware, how operating systems manage resources, and how modern distributed systems achieve resilience at scale.",
-      "Whether it is writing high-performance code in C, analyzing Linux kernel internals, configuring containerized environments, or reasoning about network protocol overhead, I thrive on demystifying complex abstractions and engineering robust infrastructure foundations."
+        "I am a Computer Science master’s student at VU / UvA, specializing in Computer Systems and Infrastructure. I care about how computers work under the hood, especially performance, security, and building reliable distributed systems. I mainly write code in C and C++, am currently learning Rust, and enjoy competitive programming in my spare time."
     ],
     "education": [
       {
@@ -20,21 +17,14 @@
         "specialization": "Track: Computer Systems and Infrastructure",
         "institution": "University of Amsterdam / Vrije Universiteit (UvA/VU) • Amsterdam, Netherlands",
         "period": "SEP 2026 – JUL 2028",
-        "description": "Specializing in advanced computer systems and large-scale infrastructure."
+        "description": "Computer Systems and Infrastructure track."
       },
       {
         "degree": "B.S. in Computer Science and Engineering",
         "specialization": "Grade: 16/20",
         "institution": "Instituto Superior Técnico • Lisbon, Portugal",
         "period": "SEP 2023 – JUL 2026",
-        "description": "Coursework: Operating Systems, Distributed Systems, Computer Networks, Compilers, Computer Architecture & Organization, Algorithms & Data Structures, Databases, Machine Learning."
-      },
-      {
-        "degree": "MIAI Summer School in Artificial Intelligence",
-        "specialization": "Summer School",
-        "institution": "Grenoble INP-ENSIMAG • Grenoble, France",
-        "period": "JUL 2024",
-        "description": "Summer school covering applied and foundational artificial intelligence."
+        "description": "Grade: 16/20"
       }
     ],
     "experience": [
@@ -43,9 +33,7 @@
         "organization": "SingleStore • Lisbon, Portugal",
         "period": "JUN 2026 – AUG 2026",
         "bullets": [
-          "Clustering: Developed and maintained clustering features within the distributed database engine, supporting node coordination and system stability.",
-          "Two-Phase Commit (2PC): Implemented a feature extension for the 2PC protocol that triggers during failure scenarios, ensuring fault tolerance and consistent state recovery across distributed nodes.",
-          "Concurrency Monitoring: Engineered monitoring capabilities and applied optimizations to internal engine spin locks, improving visibility into thread contention and concurrency metrics."
+            "Worked on the distributed storage team."
         ],
         "technologies": "C, C++, Python"
       },
@@ -54,8 +42,7 @@
         "organization": "BNP Paribas • Lisbon, Portugal",
         "period": "JUL 2025 – AUG 2025",
         "bullets": [
-          "Website: Built a full-stack website serving as a wrapper for an external API, improving usability and accessibility of the service.",
-          "Automation Tasks: Developed automation scripts to streamline repetitive tasks, reducing manual effort and increasing efficiency."
+            "Built a stateful full-stack website serving as a wrapper for an external API."
         ],
         "technologies": "Python, Flask"
       }
