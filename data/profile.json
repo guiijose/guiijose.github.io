@@ -1,93 +1,72 @@
 {
   "profile": {
-    "name": "Guilherme José",
+    "name": "Guilherme Andrez Jose",
+    "nameLines": [
+      "Guilherme",
+      "Andrez",
+      "Jose"
+    ],
     "handle": "guiijose",
-    "status": "CS Student • Computer Systems & Infrastructure",
-    "headlinePrefix": "Hi, I'm Guilherme José.",
-    "taglinePrefix": "Building resilient systems ",
-    "taglineGradient": "from bare metal to cloud.",
-    "subheadline": "I am a Computer Science student dedicated to understanding what happens under the hood—specializing in low-level systems, distributed architectures, operating systems, and scalable infrastructure.",
-    "isOpenToOpportunities": true
+    "photoUrl": "assets/images/portrait.jpeg"
   },
   "about": {
-    "sectionTag": "// 01. Profile & Background",
-    "sectionTitle": "About Me",
-    "sectionSubtitle": "Deeply curious about computing abstractions, performance engineering, and system reliability.",
     "paragraphs": [
       "I am pursuing a degree in <strong>Computer Science</strong> with a dedicated specialization in <strong>Computer Systems and Infrastructure</strong>. My academic and practical focus revolves around how software interfaces directly with hardware, how operating systems manage resources, and how modern distributed systems achieve resilience at scale.",
       "Whether it is writing high-performance code in C, analyzing Linux kernel internals, configuring containerized environments, or reasoning about network protocol overhead, I thrive on demystifying complex abstractions and engineering robust infrastructure foundations."
     ],
-    "focusAreas": [
-      {
-        "id": "os",
-        "title": "Systems & OS Internals",
-        "description": "Process scheduling, virtual memory, POSIX interfaces, concurrency primitives, and hardware-software interaction."
-      },
-      {
-        "id": "networks",
-        "title": "Distributed Systems & Networks",
-        "description": "Socket programming, TCP/IP stack, consensus, RPC protocols, and designing fault-tolerant communication pipelines."
-      },
-      {
-        "id": "infra",
-        "title": "Infrastructure & DevOps",
-        "description": "Containerization with Docker, Linux system administration, CI/CD pipelines, and automated environment provisioning."
-      },
-      {
-        "id": "perf",
-        "title": "Performance & Diagnostics",
-        "description": "Benchmarking, memory profiling, profiling system bottlenecks, cache utilization, and observability."
-      }
-    ],
-    "sysinfo": {
-      "fileName": "sysinfo.sh",
-      "discipline": "Computer Science (B.S.)",
-      "specialization": "Computer Systems & Infrastructure",
-      "languages": ["C", "C++", "Python", "Bash", "Go"],
-      "tools": ["Linux / Unix", "Docker", "Git", "GDB / Valgrind", "POSIX", "Virtualization"],
-      "status": "Open to opportunities"
-    }
-  },
-  "cv": {
-    "sectionTag": "// 02. Curriculum Vitae",
-    "sectionTitle": "Curriculum Vitae",
-    "sectionSubtitle": "Explore my educational qualifications, systems coursework, and technical competencies.",
-    "pdfUrl": "assets/docs/cv.pdf",
-    "downloadFileName": "Guilherme_Jose_CV.pdf",
-    "bannerTitle": "Complete Resume / CV",
-    "bannerText": "Access the complete document detailing my academic track, technical projects, and background. Available for immediate in-browser viewing or PDF download.",
     "education": [
       {
-        "degree": "B.S. in Computer Science",
-        "specialization": "Specialization: Computer Systems and Infrastructure",
-        "period": "CURRENT / ONGOING",
-        "description": "Rigorous focus on system fundamentals, OS principles, algorithms, data structures, and networked environments."
-      }
-    ],
-    "coursework": [
-      "Operating Systems",
-      "Computer Architecture",
-      "Computer Networks",
-      "Distributed Systems",
-      "Cloud Infrastructure",
-      "Database Management Systems",
-      "Algorithms & Complexity",
-      "System Security & Dependability"
-    ],
-    "competencies": [
-      {
-        "category": "Languages & Scripting",
-        "items": ["C", "C++", "Python", "Bash / Shell", "Go", "SQL"]
+        "degree": "MSc in Computer Science (Joint Degree)",
+        "specialization": "Track: Computer Systems and Infrastructure",
+        "institution": "University of Amsterdam / Vrije Universiteit (UvA/VU) • Amsterdam, Netherlands",
+        "period": "SEP 2026 – JUL 2028",
+        "description": "Specializing in advanced computer systems and large-scale infrastructure."
       },
       {
-        "category": "Platforms & Infrastructure",
-        "items": ["Linux / Unix Kernel", "Docker", "Git & GitHub Actions", "TCP/IP & Sockets", "CI/CD"]
+        "degree": "B.S. in Computer Science and Engineering",
+        "specialization": "Grade: 16/20",
+        "institution": "Instituto Superior Técnico • Lisbon, Portugal",
+        "period": "SEP 2023 – JUL 2026",
+        "description": "Coursework: Operating Systems, Distributed Systems, Computer Networks, Compilers, Computer Architecture & Organization, Algorithms & Data Structures, Databases, Machine Learning."
+      },
+      {
+        "degree": "MIAI Summer School in Artificial Intelligence",
+        "specialization": "Summer School",
+        "institution": "Grenoble INP-ENSIMAG • Grenoble, France",
+        "period": "JUL 2024",
+        "description": "Summer school covering applied and foundational artificial intelligence."
+      }
+    ],
+    "experience": [
+      {
+        "role": "Software Engineering Intern, Engine Department",
+        "organization": "SingleStore • Lisbon, Portugal",
+        "period": "JUN 2026 – AUG 2026",
+        "bullets": [
+          "Clustering: Developed and maintained clustering features within the distributed database engine, supporting node coordination and system stability.",
+          "Two-Phase Commit (2PC): Implemented a feature extension for the 2PC protocol that triggers during failure scenarios, ensuring fault tolerance and consistent state recovery across distributed nodes.",
+          "Concurrency Monitoring: Engineered monitoring capabilities and applied optimizations to internal engine spin locks, improving visibility into thread contention and concurrency metrics."
+        ],
+        "technologies": "C, C++, Python"
+      },
+      {
+        "role": "Summer Internship, Quantitative Research Compute Team",
+        "organization": "BNP Paribas • Lisbon, Portugal",
+        "period": "JUL 2025 – AUG 2025",
+        "bullets": [
+          "Website: Built a full-stack website serving as a wrapper for an external API, improving usability and accessibility of the service.",
+          "Automation Tasks: Developed automation scripts to streamline repetitive tasks, reducing manual effort and increasing efficiency."
+        ],
+        "technologies": "Python, Flask"
       }
     ]
   },
+  "cv": {
+    "pdfUrl": "assets/docs/cv.pdf"
+  },
   "social": {
-    "github": "https://github.com/guiijose",
     "linkedin": "https://linkedin.com",
-    "email": "guilhermejose@example.com"
+    "github": "https://github.com/guiijose",
+    "email": "guiandrezjose@gmail.com"
   }
 }

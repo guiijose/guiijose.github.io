@@ -1,6 +1,6 @@
 /**
  * Guilherme José - Personal Website
- * Dynamic Data Loader & UI Hydrator
+ * Dynamic Data Loader & Hydrator
  */
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -16,9 +16,7 @@ async function initWebsite() {
     renderAll(data);
   }
   
-  initNavigationHighlight();
   initEmailCopy();
-  initCopyrightYear();
 }
 
 /**
@@ -41,67 +39,70 @@ async function loadProfileData() {
  * Renders all website sections from the loaded profile data
  */
 function renderAll(data) {
-  renderBrand(data);
+  renderTopBar(data);
   renderHero(data);
   renderAbout(data);
-  renderCV(data);
-  renderFooter(data);
 }
 
 /**
- * Renders Brand and Header elements
+ * Renders Top Bar: >guiijose (Left) | [Icons + View CV] (Right)
  */
-function renderBrand(data) {
+function renderTopBar(data) {
   const brandText = document.getElementById('nav-brand-text');
   if (brandText && data.profile?.handle) {
     brandText.textContent = data.profile.handle;
   }
 
-  const navCvBtn = document.getElementById('nav-cv-btn');
-  if (navCvBtn && data.cv?.pdfUrl) {
-    navCvBtn.setAttribute('href', data.cv.pdfUrl);
+  const linkedinLink = document.getElementById('nav-linkedin-link');
+  if (linkedinLink && data.social?.linkedin) {
+    linkedinLink.setAttribute('href', data.social.linkedin);
+  }
+
+  const githubLink = document.getElementById('nav-github-link');
+  if (githubLink && data.social?.github) {
+    githubLink.setAttribute('href', data.social.github);
+  }
+
+  const emailLink = document.getElementById('nav-email-link');
+  if (emailLink && data.social?.email) {
+    emailLink.setAttribute('href', `mailto:${data.social.email}`);
+    emailLink.setAttribute('data-copy-email', data.social.email);
+  }
+
+  const cvBtn = document.getElementById('nav-cv-btn');
+  if (cvBtn && data.cv?.pdfUrl) {
+    cvBtn.setAttribute('href', data.cv.pdfUrl);
   }
 }
 
 /**
- * Renders Hero section
+ * Renders Hero: 3-line Name on left, photo on right
  */
 function renderHero(data) {
-  const statusBadge = document.getElementById('hero-status-text');
-  if (statusBadge && data.profile?.status) {
-    statusBadge.textContent = data.profile.status;
+  const heroName = document.getElementById('hero-name');
+  if (heroName) {
+    const lines = Array.isArray(data.profile?.nameLines) && data.profile.nameLines.length
+      ? data.profile.nameLines
+      : (data.profile?.name ? data.profile.name.split(' ') : ['Guilherme', 'Andrez', 'Jose']);
+
+    heroName.innerHTML = lines
+      .map(line => `<span class="hero-name-line">${escapeHtml(line)}</span>`)
+      .join('');
   }
 
-  const heroHeadline = document.getElementById('hero-headline');
-  if (heroHeadline && data.profile) {
-    heroHeadline.innerHTML = `
-      ${escapeHtml(data.profile.headlinePrefix || "Hi, I'm Guilherme José.")}<br>
-      ${escapeHtml(data.profile.taglinePrefix || 'Building resilient systems ')}
-      <span class="gradient-text">${escapeHtml(data.profile.taglineGradient || 'from bare metal to cloud.')}</span>
-    `;
-  }
-
-  const heroSub = document.getElementById('hero-subheadline');
-  if (heroSub && data.profile?.subheadline) {
-    heroSub.textContent = data.profile.subheadline;
+  const heroPhoto = document.getElementById('hero-photo');
+  if (heroPhoto && data.profile?.photoUrl) {
+    heroPhoto.setAttribute('src', data.profile.photoUrl);
+    heroPhoto.setAttribute('alt', data.profile.name || 'Guilherme Andrez Jose');
   }
 }
 
 /**
- * Renders About section (bio, focus cards, system specs panel)
+ * Renders About Section: bio, education, and experience timelines
  */
 function renderAbout(data) {
   const about = data.about;
   if (!about) return;
-
-  const tag = document.getElementById('about-tag');
-  if (tag && about.sectionTag) tag.textContent = about.sectionTag;
-
-  const title = document.getElementById('about-title');
-  if (title && about.sectionTitle) title.textContent = about.sectionTitle;
-
-  const subtitle = document.getElementById('about-subtitle');
-  if (subtitle && about.sectionSubtitle) subtitle.textContent = about.sectionSubtitle;
 
   // Bio Paragraphs
   const bioContainer = document.getElementById('about-bio');
@@ -109,224 +110,37 @@ function renderAbout(data) {
     bioContainer.innerHTML = about.paragraphs.map(p => `<p>${p}</p>`).join('');
   }
 
-  // Focus Cards
-  const focusGrid = document.getElementById('focus-cards-grid');
-  if (focusGrid && Array.isArray(about.focusAreas)) {
-    focusGrid.innerHTML = about.focusAreas.map(card => {
-      return `
-        <div class="focus-card">
-          <div class="focus-icon">
-            ${getFocusIconSvg(card.id)}
-          </div>
-          <h3 class="focus-title">${escapeHtml(card.title)}</h3>
-          <p class="focus-desc">${escapeHtml(card.description)}</p>
-        </div>
-      `;
-    }).join('');
-  }
-
-  // Sysinfo Specs Panel
-  const sysinfo = about.sysinfo;
-  if (sysinfo) {
-    const fileName = document.getElementById('sysinfo-file-name');
-    if (fileName && sysinfo.fileName) fileName.textContent = sysinfo.fileName;
-
-    const discipline = document.getElementById('spec-discipline');
-    if (discipline && sysinfo.discipline) discipline.textContent = sysinfo.discipline;
-
-    const specialization = document.getElementById('spec-specialization');
-    if (specialization && sysinfo.specialization) specialization.textContent = sysinfo.specialization;
-
-    const statusEl = document.getElementById('spec-status');
-    if (statusEl && sysinfo.status) statusEl.textContent = sysinfo.status;
-
-    const languagesContainer = document.getElementById('spec-languages');
-    if (languagesContainer && Array.isArray(sysinfo.languages)) {
-      languagesContainer.innerHTML = sysinfo.languages
-        .map(lang => `<span class="tech-tag">${escapeHtml(lang)}</span>`).join('');
-    }
-
-    const toolsContainer = document.getElementById('spec-tools');
-    if (toolsContainer && Array.isArray(sysinfo.tools)) {
-      toolsContainer.innerHTML = sysinfo.tools
-        .map(tool => `<span class="tech-tag">${escapeHtml(tool)}</span>`).join('');
-    }
-  }
-}
-
-/**
- * Renders CV Section (Banner buttons, Education, Coursework, Competencies)
- */
-function renderCV(data) {
-  const cv = data.cv;
-  if (!cv) return;
-
-  const tag = document.getElementById('cv-tag');
-  if (tag && cv.sectionTag) tag.textContent = cv.sectionTag;
-
-  const title = document.getElementById('cv-title');
-  if (title && cv.sectionTitle) title.textContent = cv.sectionTitle;
-
-  const subtitle = document.getElementById('cv-subtitle');
-  if (subtitle && cv.sectionSubtitle) subtitle.textContent = cv.sectionSubtitle;
-
-  const bannerTitle = document.getElementById('cv-banner-title');
-  if (bannerTitle && cv.bannerTitle) bannerTitle.textContent = cv.bannerTitle;
-
-  const bannerText = document.getElementById('cv-banner-text');
-  if (bannerText && cv.bannerText) bannerText.textContent = cv.bannerText;
-
-  // CV Links
-  const viewCvBtn = document.getElementById('cv-view-btn');
-  if (viewCvBtn && cv.pdfUrl) {
-    viewCvBtn.setAttribute('href', cv.pdfUrl);
-  }
-
-  const downloadCvBtn = document.getElementById('cv-download-btn');
-  if (downloadCvBtn && cv.pdfUrl) {
-    downloadCvBtn.setAttribute('href', cv.pdfUrl);
-    if (cv.downloadFileName) {
-      downloadCvBtn.setAttribute('download', cv.downloadFileName);
-    }
-  }
-
   // Education Timeline
-  const educationContainer = document.getElementById('cv-education-list');
-  if (educationContainer && Array.isArray(cv.education)) {
-    educationContainer.innerHTML = cv.education.map(item => `
+  const educationContainer = document.getElementById('about-education-list');
+  if (educationContainer && Array.isArray(about.education)) {
+    educationContainer.innerHTML = about.education.map(item => `
       <div class="timeline-item">
         <div class="timeline-date">${escapeHtml(item.period || '')}</div>
         <div class="timeline-title">${escapeHtml(item.degree || '')}</div>
-        <div class="timeline-subtitle">${escapeHtml(item.specialization || '')}</div>
-        <p class="timeline-desc">${escapeHtml(item.description || '')}</p>
+        <div class="timeline-subtitle">${escapeHtml(item.institution || item.specialization || '')}</div>
+        ${item.description ? `<p class="timeline-desc">${escapeHtml(item.description)}</p>` : ''}
       </div>
     `).join('');
   }
 
-  // Coursework Tags
-  const courseworkContainer = document.getElementById('cv-coursework-list');
-  if (courseworkContainer && Array.isArray(cv.coursework)) {
-    courseworkContainer.innerHTML = cv.coursework
-      .map(course => `<span class="tech-tag">${escapeHtml(course)}</span>`).join('');
-  }
-
-  // Technical Competencies
-  const competenciesContainer = document.getElementById('cv-competencies-list');
-  if (competenciesContainer && Array.isArray(cv.competencies)) {
-    competenciesContainer.innerHTML = cv.competencies.map(cat => `
-      <div class="skill-category">
-        <span class="skill-category-title">${escapeHtml(cat.category)}</span>
-        <div class="tech-tag-group">
-          ${cat.items.map(item => `<span class="tech-tag">${escapeHtml(item)}</span>`).join('')}
-        </div>
+  // Experience Timeline
+  const experienceContainer = document.getElementById('about-experience-list');
+  if (experienceContainer && Array.isArray(about.experience)) {
+    experienceContainer.innerHTML = about.experience.map(item => `
+      <div class="timeline-item">
+        <div class="timeline-date">${escapeHtml(item.period || '')}</div>
+        <div class="timeline-title">${escapeHtml(item.role || '')}</div>
+        <div class="timeline-subtitle">${escapeHtml(item.organization || '')}</div>
+        ${item.description ? `<p class="timeline-desc">${escapeHtml(item.description)}</p>` : ''}
+        ${Array.isArray(item.bullets) ? `
+          <ul class="timeline-bullets">
+            ${item.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join('')}
+          </ul>
+        ` : ''}
+        ${item.technologies ? `<div class="timeline-tech"><span class="tech-label">Technologies:</span> ${escapeHtml(item.technologies)}</div>` : ''}
       </div>
     `).join('');
   }
-}
-
-/**
- * Renders Footer & Social contacts
- */
-function renderFooter(data) {
-  const footerBrand = document.getElementById('footer-brand-text');
-  if (footerBrand && data.profile?.handle) {
-    footerBrand.textContent = data.profile.handle;
-  }
-
-  const social = data.social;
-  if (!social) return;
-
-  const githubLink = document.getElementById('footer-github-link');
-  if (githubLink && social.github) {
-    githubLink.setAttribute('href', social.github);
-  }
-
-  const linkedinLink = document.getElementById('footer-linkedin-link');
-  if (linkedinLink && social.linkedin) {
-    linkedinLink.setAttribute('href', social.linkedin);
-  }
-
-  const emailLink = document.getElementById('footer-email-link');
-  if (emailLink && social.email) {
-    emailLink.setAttribute('href', `mailto:${social.email}`);
-    emailLink.setAttribute('data-copy-email', social.email);
-  }
-}
-
-/**
- * Returns matching SVG for known focus area icons
- */
-function getFocusIconSvg(iconId) {
-  switch (iconId) {
-    case 'os':
-      return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-        <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-        <line x1="6" y1="6" x2="6.01" y2="6"></line>
-        <line x1="6" y1="18" x2="6.01" y2="18"></line>
-      </svg>`;
-    case 'networks':
-      return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"></circle>
-        <line x1="2" y1="12" x2="22" y2="12"></line>
-        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-      </svg>`;
-    case 'infra':
-      return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-      </svg>`;
-    case 'perf':
-    default:
-      return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-      </svg>`;
-  }
-}
-
-/**
- * Escapes HTML characters to prevent XSS
- */
-function escapeHtml(str) {
-  if (typeof str !== 'string') return '';
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-}
-
-/**
- * Highlights navigation items based on current scroll position using IntersectionObserver
- */
-function initNavigationHighlight() {
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
-
-  if (!sections.length || !navLinks.length) return;
-
-  const observerOptions = {
-    root: null,
-    rootMargin: '-20% 0px -60% 0px',
-    threshold: 0
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const id = entry.target.getAttribute('id');
-        navLinks.forEach((link) => {
-          if (link.getAttribute('href') === `#${id}`) {
-            link.classList.add('active');
-          } else {
-            link.classList.remove('active');
-          }
-        });
-      }
-    });
-  }, observerOptions);
-
-  sections.forEach((section) => observer.observe(section));
 }
 
 /**
@@ -341,7 +155,7 @@ function initEmailCopy() {
   copyButtons.forEach((btn) => {
     btn.addEventListener('click', async (e) => {
       e.preventDefault();
-      const email = btn.getAttribute('data-copy-email') || 'guilhermejose@example.com';
+      const email = btn.getAttribute('data-copy-email') || 'guiandrezjose@gmail.com';
 
       try {
         if (navigator.clipboard && window.isSecureContext) {
@@ -376,13 +190,16 @@ function initEmailCopy() {
 }
 
 /**
- * Sets current year in footer dynamically
+ * Escapes HTML characters to prevent XSS
  */
-function initCopyrightYear() {
-  const yearElement = document.getElementById('current-year');
-  if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
-  }
+function escapeHtml(str) {
+  if (typeof str !== 'string') return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 /**
@@ -391,95 +208,74 @@ function initCopyrightYear() {
 function getFallbackData() {
   return {
     "profile": {
-      "name": "Guilherme José",
+      "name": "Guilherme Andrez Jose",
+      "nameLines": [
+        "Guilherme",
+        "Andrez",
+        "Jose"
+      ],
       "handle": "guiijose",
-      "status": "CS Student • Computer Systems & Infrastructure",
-      "headlinePrefix": "Hi, I'm Guilherme José.",
-      "taglinePrefix": "Building resilient systems ",
-      "taglineGradient": "from bare metal to cloud.",
-      "subheadline": "I am a Computer Science student dedicated to understanding what happens under the hood—specializing in low-level systems, distributed architectures, operating systems, and scalable infrastructure.",
-      "isOpenToOpportunities": true
+      "photoUrl": "assets/images/portrait.jpeg"
     },
     "about": {
-      "sectionTag": "// 01. Profile & Background",
-      "sectionTitle": "About Me",
-      "sectionSubtitle": "Deeply curious about computing abstractions, performance engineering, and system reliability.",
       "paragraphs": [
         "I am pursuing a degree in <strong>Computer Science</strong> with a dedicated specialization in <strong>Computer Systems and Infrastructure</strong>. My academic and practical focus revolves around how software interfaces directly with hardware, how operating systems manage resources, and how modern distributed systems achieve resilience at scale.",
         "Whether it is writing high-performance code in C, analyzing Linux kernel internals, configuring containerized environments, or reasoning about network protocol overhead, I thrive on demystifying complex abstractions and engineering robust infrastructure foundations."
       ],
-      "focusAreas": [
-        {
-          "id": "os",
-          "title": "Systems & OS Internals",
-          "description": "Process scheduling, virtual memory, POSIX interfaces, concurrency primitives, and hardware-software interaction."
-        },
-        {
-          "id": "networks",
-          "title": "Distributed Systems & Networks",
-          "description": "Socket programming, TCP/IP stack, consensus, RPC protocols, and designing fault-tolerant communication pipelines."
-        },
-        {
-          "id": "infra",
-          "title": "Infrastructure & DevOps",
-          "description": "Containerization with Docker, Linux system administration, CI/CD pipelines, and automated environment provisioning."
-        },
-        {
-          "id": "perf",
-          "title": "Performance & Diagnostics",
-          "description": "Benchmarking, memory profiling, profiling system bottlenecks, cache utilization, and observability."
-        }
-      ],
-      "sysinfo": {
-        "fileName": "sysinfo.sh",
-        "discipline": "Computer Science (B.S.)",
-        "specialization": "Computer Systems & Infrastructure",
-        "languages": ["C", "C++", "Python", "Bash", "Go"],
-        "tools": ["Linux / Unix", "Docker", "Git", "GDB / Valgrind", "POSIX", "Virtualization"],
-        "status": "Open to opportunities"
-      }
-    },
-    "cv": {
-      "sectionTag": "// 02. Curriculum Vitae",
-      "sectionTitle": "Curriculum Vitae",
-      "sectionSubtitle": "Explore my educational qualifications, systems coursework, and technical competencies.",
-      "pdfUrl": "assets/docs/cv.pdf",
-      "downloadFileName": "Guilherme_Jose_CV.pdf",
-      "bannerTitle": "Complete Resume / CV",
-      "bannerText": "Access the complete document detailing my academic track, technical projects, and background. Available for immediate in-browser viewing or PDF download.",
       "education": [
         {
-          "degree": "B.S. in Computer Science",
-          "specialization": "Specialization: Computer Systems and Infrastructure",
-          "period": "CURRENT / ONGOING",
-          "description": "Rigorous focus on system fundamentals, OS principles, algorithms, data structures, and networked environments."
-        }
-      ],
-      "coursework": [
-        "Operating Systems",
-        "Computer Architecture",
-        "Computer Networks",
-        "Distributed Systems",
-        "Cloud Infrastructure",
-        "Database Management Systems",
-        "Algorithms & Complexity",
-        "System Security & Dependability"
-      ],
-      "competencies": [
-        {
-          "category": "Languages & Scripting",
-          "items": ["C", "C++", "Python", "Bash / Shell", "Go", "SQL"]
+          "degree": "MSc in Computer Science (Joint Degree)",
+          "specialization": "Track: Computer Systems and Infrastructure",
+          "institution": "University of Amsterdam / Vrije Universiteit (UvA/VU) • Amsterdam, Netherlands",
+          "period": "SEP 2026 – JUL 2028",
+          "description": "Specializing in advanced computer systems and large-scale infrastructure."
         },
         {
-          "category": "Platforms & Infrastructure",
-          "items": ["Linux / Unix Kernel", "Docker", "Git & GitHub Actions", "TCP/IP & Sockets", "CI/CD"]
+          "degree": "B.S. in Computer Science and Engineering",
+          "specialization": "Grade: 16/20",
+          "institution": "Instituto Superior Técnico • Lisbon, Portugal",
+          "period": "SEP 2023 – JUL 2026",
+          "description": "Coursework: Operating Systems, Distributed Systems, Computer Networks, Compilers, Computer Architecture & Organization, Algorithms & Data Structures, Databases, Machine Learning."
+        },
+        {
+          "degree": "MIAI Summer School in Artificial Intelligence",
+          "specialization": "Summer School",
+          "institution": "Grenoble INP-ENSIMAG • Grenoble, France",
+          "period": "JUL 2024",
+          "description": "Summer school covering applied and foundational artificial intelligence."
+        }
+      ],
+      "experience": [
+        {
+          "role": "Software Engineering Intern, Engine Department",
+          "organization": "SingleStore • Lisbon, Portugal",
+          "period": "JUN 2026 – AUG 2026",
+          "bullets": [
+            "Clustering: Developed and maintained clustering features within the distributed database engine, supporting node coordination and system stability.",
+            "Two-Phase Commit (2PC): Implemented a feature extension for the 2PC protocol that triggers during failure scenarios, ensuring fault tolerance and consistent state recovery across distributed nodes.",
+            "Concurrency Monitoring: Engineered monitoring capabilities and applied optimizations to internal engine spin locks, improving visibility into thread contention and concurrency metrics."
+          ],
+          "technologies": "C, C++, Python"
+        },
+        {
+          "role": "Summer Internship, Quantitative Research Compute Team",
+          "organization": "BNP Paribas • Lisbon, Portugal",
+          "period": "JUL 2025 – AUG 2025",
+          "bullets": [
+            "Website: Built a full-stack website serving as a wrapper for an external API, improving usability and accessibility of the service.",
+            "Automation Tasks: Developed automation scripts to streamline repetitive tasks, reducing manual effort and increasing efficiency."
+          ],
+          "technologies": "Python, Flask"
         }
       ]
     },
+    "cv": {
+      "pdfUrl": "assets/docs/cv.pdf"
+    },
     "social": {
-      "github": "https://github.com/guiijose",
       "linkedin": "https://linkedin.com",
-      "email": "guilhermejose@example.com"
+      "github": "https://github.com/guiijose",
+      "email": "guiandrezjose@gmail.com"
     }
   };
 }
