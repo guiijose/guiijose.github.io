@@ -273,7 +273,7 @@ function getFallbackData() {
       "pdfUrl": "assets/docs/cv.pdf"
     },
     "social": {
-      "linkedin": "https://linkedin.com",
+      "linkedin": "https://www.linkedin.com/in/guilherme-a-jose/",
       "github": "https://github.com/guiijose",
       "email": "guiandrezjose@gmail.com"
     }

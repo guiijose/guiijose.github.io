@@ -36,7 +36,7 @@ To change anything on your site, open and edit **[`data/profile.json`](file:///U
   },
   "social": {
     "github": "https://github.com/guiijose",
-    "linkedin": "https://linkedin.com",
+    "linkedin": "https://linkedin.com/guilherme-a-jose",
     "email": "guilhermejose@example.com"
   }
 }
