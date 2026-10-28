@@ -26,26 +26,6 @@
         "period": "SEP 2023 – JUL 2026",
         "description": "Grade: 16/20"
       }
-    ],
-    "experience": [
-      {
-        "role": "Software Engineering Intern, Engine Department",
-        "organization": "SingleStore • Lisbon, Portugal",
-        "period": "JUN 2026 – AUG 2026",
-        "bullets": [
-            "Worked on the distributed storage team."
-        ],
-        "technologies": "C, C++, Python"
-      },
-      {
-        "role": "Summer Internship, Quantitative Research Compute Team",
-        "organization": "BNP Paribas • Lisbon, Portugal",
-        "period": "JUL 2025 – AUG 2025",
-        "bullets": [
-            "Built a stateful full-stack website serving as a wrapper for an external API."
-        ],
-        "technologies": "Python, Flask"
-      }
     ]
   },
   "cv": {

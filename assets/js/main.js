@@ -98,7 +98,7 @@ function renderHero(data) {
 }
 
 /**
- * Renders About Section: bio, education, and experience timelines
+ * Renders About Section: bio and education timeline
  */
 function renderAbout(data) {
   const about = data.about;
@@ -119,25 +119,6 @@ function renderAbout(data) {
         <div class="timeline-title">${escapeHtml(item.degree || '')}</div>
         <div class="timeline-subtitle">${escapeHtml(item.institution || item.specialization || '')}</div>
         ${item.description ? `<p class="timeline-desc">${escapeHtml(item.description)}</p>` : ''}
-      </div>
-    `).join('');
-  }
-
-  // Experience Timeline
-  const experienceContainer = document.getElementById('about-experience-list');
-  if (experienceContainer && Array.isArray(about.experience)) {
-    experienceContainer.innerHTML = about.experience.map(item => `
-      <div class="timeline-item">
-        <div class="timeline-date">${escapeHtml(item.period || '')}</div>
-        <div class="timeline-title">${escapeHtml(item.role || '')}</div>
-        <div class="timeline-subtitle">${escapeHtml(item.organization || '')}</div>
-        ${item.description ? `<p class="timeline-desc">${escapeHtml(item.description)}</p>` : ''}
-        ${Array.isArray(item.bullets) ? `
-          <ul class="timeline-bullets">
-            ${item.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join('')}
-          </ul>
-        ` : ''}
-        ${item.technologies ? `<div class="timeline-tech"><span class="tech-label">Technologies:</span> ${escapeHtml(item.technologies)}</div>` : ''}
       </div>
     `).join('');
   }
@@ -243,29 +224,6 @@ function getFallbackData() {
           "institution": "Grenoble INP-ENSIMAG • Grenoble, France",
           "period": "JUL 2024",
           "description": "Summer school covering applied and foundational artificial intelligence."
-        }
-      ],
-      "experience": [
-        {
-          "role": "Software Engineering Intern, Engine Department",
-          "organization": "SingleStore • Lisbon, Portugal",
-          "period": "JUN 2026 – AUG 2026",
-          "bullets": [
-            "Clustering: Developed and maintained clustering features within the distributed database engine, supporting node coordination and system stability.",
-            "Two-Phase Commit (2PC): Implemented a feature extension for the 2PC protocol that triggers during failure scenarios, ensuring fault tolerance and consistent state recovery across distributed nodes.",
-            "Concurrency Monitoring: Engineered monitoring capabilities and applied optimizations to internal engine spin locks, improving visibility into thread contention and concurrency metrics."
-          ],
-          "technologies": "C, C++, Python"
-        },
-        {
-          "role": "Summer Internship, Quantitative Research Compute Team",
-          "organization": "BNP Paribas • Lisbon, Portugal",
-          "period": "JUL 2025 – AUG 2025",
-          "bullets": [
-            "Website: Built a full-stack website serving as a wrapper for an external API, improving usability and accessibility of the service.",
-            "Automation Tasks: Developed automation scripts to streamline repetitive tasks, reducing manual effort and increasing efficiency."
-          ],
-          "technologies": "Python, Flask"
         }
       ]
     },

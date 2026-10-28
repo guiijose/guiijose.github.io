@@ -24,15 +24,10 @@ To change anything on your site, open and edit **[`data/profile.json`](file:///U
   },
   "about": {
     "paragraphs": [ ... ],
-    "focusAreas": [ ... ],
-    "sysinfo": { ... }
+    "education": [ ... ]
   },
   "cv": {
-    "pdfUrl": "assets/docs/cv.pdf",
-    "downloadFileName": "Guilherme_Jose_CV.pdf",
-    "education": [ ... ],
-    "coursework": [ ... ],
-    "competencies": [ ... ]
+    "pdfUrl": "assets/docs/cv.pdf"
   },
   "social": {
     "github": "https://github.com/guiijose",
