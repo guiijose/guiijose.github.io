@@ -1,6 +1,6 @@
 /**
  * Guilherme José - Personal Website
- * Dynamic Data Loader & Hydrator
+ * Dynamic Data Loader & Hydrator (Terminal Edition)
  */
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -30,7 +30,7 @@ async function loadProfileData() {
     }
     return await response.json();
   } catch (error) {
-    console.warn('Could not fetch data/profile.json directly (likely due to file:// CORS restriction). Using embedded fallback data. To load changes directly from data/profile.json, run a local web server (e.g., python3 -m http.server).', error);
+    console.warn('Could not fetch data/profile.json directly (e.g. file:// CORS). Using embedded fallback data.', error);
     return getFallbackData();
   }
 }
@@ -45,22 +45,18 @@ function renderAll(data) {
 }
 
 /**
- * Renders Top Bar: >guiijose (Left) | [Icons + View CV] (Right)
+ * Renders Top Bar Links: CV, LinkedIn, Email, GitHub
  */
 function renderTopBar(data) {
-  const brandText = document.getElementById('nav-brand-text');
-  if (brandText && data.profile?.handle) {
-    brandText.textContent = data.profile.handle;
+  const cvBtn = document.getElementById('nav-cv-btn');
+  const cvUrl = data.social?.cv || data.cv?.pdfUrl;
+  if (cvBtn && cvUrl) {
+    cvBtn.setAttribute('href', cvUrl);
   }
 
   const linkedinLink = document.getElementById('nav-linkedin-link');
   if (linkedinLink && data.social?.linkedin) {
     linkedinLink.setAttribute('href', data.social.linkedin);
-  }
-
-  const githubLink = document.getElementById('nav-github-link');
-  if (githubLink && data.social?.github) {
-    githubLink.setAttribute('href', data.social.github);
   }
 
   const emailLink = document.getElementById('nav-email-link');
@@ -69,63 +65,46 @@ function renderTopBar(data) {
     emailLink.setAttribute('data-copy-email', data.social.email);
   }
 
-  const cvBtn = document.getElementById('nav-cv-btn');
-  if (cvBtn && data.cv?.pdfUrl) {
-    cvBtn.setAttribute('href', data.cv.pdfUrl);
+  const githubLink = document.getElementById('nav-github-link');
+  if (githubLink && data.social?.github) {
+    githubLink.setAttribute('href', data.social.github);
   }
 }
 
 /**
- * Renders Hero: 3-line Name on left, photo on right
+ * Renders Center-Top Hero: Photo and Name
  */
 function renderHero(data) {
   const heroName = document.getElementById('hero-name');
-  if (heroName) {
-    const lines = Array.isArray(data.profile?.nameLines) && data.profile.nameLines.length
-      ? data.profile.nameLines
-      : (data.profile?.name ? data.profile.name.split(' ') : ['Guilherme', 'Andrez', 'Jose']);
-
-    heroName.innerHTML = lines
-      .map(line => `<span class="hero-name-line">${escapeHtml(line)}</span>`)
-      .join('');
+  if (heroName && data.profile?.name) {
+    heroName.textContent = data.profile.name;
   }
 
   const heroPhoto = document.getElementById('hero-photo');
   if (heroPhoto && data.profile?.photoUrl) {
     heroPhoto.setAttribute('src', data.profile.photoUrl);
-    heroPhoto.setAttribute('alt', data.profile.name || 'Guilherme Andrez Jose');
+    heroPhoto.setAttribute('alt', data.profile.name || 'Guilherme Andrez José');
   }
 }
 
 /**
- * Renders About Section: bio and education timeline
+ * Renders About Section: bio text
  */
 function renderAbout(data) {
   const about = data.about;
   if (!about) return;
 
-  // Bio Paragraphs
   const bioContainer = document.getElementById('about-bio');
   if (bioContainer && Array.isArray(about.paragraphs)) {
-    bioContainer.innerHTML = about.paragraphs.map(p => `<p>${p}</p>`).join('');
-  }
-
-  // Education Timeline
-  const educationContainer = document.getElementById('about-education-list');
-  if (educationContainer && Array.isArray(about.education)) {
-    educationContainer.innerHTML = about.education.map(item => `
-      <div class="timeline-item">
-        <div class="timeline-date">${escapeHtml(item.period || '')}</div>
-        <div class="timeline-title">${escapeHtml(item.degree || '')}</div>
-        <div class="timeline-subtitle">${escapeHtml(item.institution || item.specialization || '')}</div>
-        ${item.description ? `<p class="timeline-desc">${escapeHtml(item.description)}</p>` : ''}
-      </div>
-    `).join('');
+    const paragraphsHtml = about.paragraphs
+      .map(p => `<p>${escapeHtml(p)}</p>`)
+      .join('');
+    bioContainer.innerHTML = paragraphsHtml;
   }
 }
 
 /**
- * Copies contact email to clipboard and presents a feedback toast notification
+ * Copies contact email to clipboard and presents a terminal feedback toast notification
  */
 function initEmailCopy() {
   const copyButtons = document.querySelectorAll('[data-copy-email]');
@@ -152,7 +131,7 @@ function initEmailCopy() {
           document.execCommand('copy');
           document.body.removeChild(textArea);
         }
-        showToast(`Copied to clipboard: ${email}`);
+        showToast(`[✓] Copied to clipboard: ${email}`);
       } catch (err) {
         showToast(`Email: ${email}`);
       }
@@ -189,51 +168,23 @@ function escapeHtml(str) {
 function getFallbackData() {
   return {
     "profile": {
-      "name": "Guilherme Andrez Jose",
-      "nameLines": [
-        "Guilherme",
-        "Andrez",
-        "Jose"
-      ],
+      "name": "Guilherme Andrez José",
       "handle": "guiijose",
       "photoUrl": "assets/images/portrait.jpeg"
     },
     "about": {
       "paragraphs": [
-        "I am pursuing a degree in <strong>Computer Science</strong> with a dedicated specialization in <strong>Computer Systems and Infrastructure</strong>. My academic and practical focus revolves around how software interfaces directly with hardware, how operating systems manage resources, and how modern distributed systems achieve resilience at scale.",
-        "Whether it is writing high-performance code in C, analyzing Linux kernel internals, configuring containerized environments, or reasoning about network protocol overhead, I thrive on demystifying complex abstractions and engineering robust infrastructure foundations."
-      ],
-      "education": [
-        {
-          "degree": "MSc in Computer Science (Joint Degree)",
-          "specialization": "Track: Computer Systems and Infrastructure",
-          "institution": "University of Amsterdam / Vrije Universiteit (UvA/VU) • Amsterdam, Netherlands",
-          "period": "SEP 2026 – JUL 2028",
-          "description": "Specializing in advanced computer systems and large-scale infrastructure."
-        },
-        {
-          "degree": "B.S. in Computer Science and Engineering",
-          "specialization": "Grade: 16/20",
-          "institution": "Instituto Superior Técnico • Lisbon, Portugal",
-          "period": "SEP 2023 – JUL 2026",
-          "description": "Coursework: Operating Systems, Distributed Systems, Computer Networks, Compilers, Computer Architecture & Organization, Algorithms & Data Structures, Databases, Machine Learning."
-        },
-        {
-          "degree": "MIAI Summer School in Artificial Intelligence",
-          "specialization": "Summer School",
-          "institution": "Grenoble INP-ENSIMAG • Grenoble, France",
-          "period": "JUL 2024",
-          "description": "Summer school covering applied and foundational artificial intelligence."
-        }
+        "I am a Computer Science master’s student at VU / UvA, specializing in Computer Systems and Infrastructure. I care about how computers work under the hood, especially performance, security, and building reliable distributed systems. I mainly write code in C and C++, am currently learning Rust, and enjoy competitive programming in my spare time. I am a Neovim user but plan to try Emacs at some point in the future."
       ]
     },
     "cv": {
       "pdfUrl": "assets/docs/cv.pdf"
     },
     "social": {
+      "cv": "assets/docs/cv.pdf",
       "linkedin": "https://www.linkedin.com/in/guilherme-a-jose/",
-      "github": "https://github.com/guiijose",
-      "email": "guiandrezjose@gmail.com"
+      "email": "guiandrezjose@gmail.com",
+      "github": "https://github.com/guiijose"
     }
   };
 }

@@ -23,8 +23,7 @@ To change anything on your site, open and edit **[`data/profile.json`](file:///U
     "isOpenToOpportunities": true
   },
   "about": {
-    "paragraphs": [ ... ],
-    "education": [ ... ]
+    "paragraphs": [ ... ]
   },
   "cv": {
     "pdfUrl": "assets/docs/cv.pdf"
